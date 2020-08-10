@@ -18,55 +18,54 @@ class Images
         $this->validate = new validate();
     }
 
-    public function add(array $param)
+    public function add(string $original_sum, array $param = null)
     {
-        $temp = ['method' => 'pwg.images.add'];
-        if (isset($param['original_sum'])) {
-            $temp['original_sum'] = Validate::check('original_sum',$param['original_sum']);
-        }
+        $temp = [
+            'method' => 'pwg.images.add',
+            'original_sum' => Validate::check('original_sum', $original_sum),
+        ];
 
         if (isset($param['original_filename'])) {
-            $temp['original_filename'] = $param['original_filename'];
+            $temp['original_filename'] = Validate::check('original_filename', $param['original_filename']);
         }
 
         if (isset($param['name'])) {
-            $temp['name'] = $param['name'];
+            $temp['name'] = Validate::check('name', $param['name']);
         }
 
         if (isset($param['author'])) {
-            $temp['author'] = $param['author'];
+            $temp['author'] = Validate::check('author', $param['author']);
         }
 
         if (isset($param['date_creation'])) {
-            $temp['date_creation'] = $param['date_creation'];
+            $temp['date_creation'] = Validate::check('date_creation', $param['date_creation']);
         }
 
         if (isset($param['comment'])) {
-            $temp['comment'] = $param['comment'];
+            $temp['comment'] = Validate::check('comment', $param['comment']);
         }
 
         if (isset($param['categories'])) {
-            $temp['categories'] = $param['categories'];
+            $temp['categories'] = Validate::check('categories', $param['categories']);
         }
 
         if (isset($param['tag_ids'])) {
-            $temp['tag_ids'] = $param['tag_ids'];
+            $temp['tag_ids'] = Validate::check('tag_ids', $param['tag_ids']);
         }
 
-        if (isset($param['level']) && is_numeric($param['level'])) {
-            $temp['level'] = $param['level'];
+        if (isset($param['level'])) {
+            $temp['level'] = Validate::check('level', $param['level'], null, 'i');
         }
 
-        if (isset($param['check_uniqueness']) && is_bool($param['check_uniqueness'])) {
-            $temp['check_uniqueness'] = $param['check_uniqueness'];
+        if (isset($param['check_uniqueness'])) {
+            $temp['check_uniqueness'] = Validate::check('check_uniqueness', $param['check_uniqueness'], null, 'b');
         }
 
-        if (isset($param['image_id']) && is_numeric($param['image_id'])) {
-            $temp['image_id'] = $param['image_id'];
+        if (isset($param['image_id'])) {
+            $temp['image_id'] = Validate::check('image_id', $param['image_id'], null, 'i');
         }
 
-
-        return Http::post($param);
+        return Http::post($temp);
     }
 
     /**

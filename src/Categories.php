@@ -68,7 +68,7 @@ class Categories
     public function add(string $name, int $parent = null, string $comment = null, bool $visible = null, string $status = null, bool $commentable = null)
     {
         $param = [
-            'name' => trim($name),
+            'name' => Validate::check('name', $name),
             'method' => 'pwg.categories.add',
         ];
 
@@ -93,9 +93,7 @@ class Categories
             $param['commentable'] = Validate::check('commentable', $commentable, null, 'b');
         }
 
-        $response = Http::post($param);
-
-        return $response->id;
+        return Http::post($param)->id;
     }
 
     /**
@@ -249,7 +247,7 @@ class Categories
     }
 
     /**
-     *  * Changes properties of an album.
+     * Changes properties of an album.
      * 更改相册的属性
      * @param int $category_id
      * @param string|null $name

@@ -1,0 +1,17 @@
+{
+    "name": "aston-creator/piwigo-sdk-php",
+    "authors": [
+        {
+            "name": "aston",
+            "email": "z13692045316@gmail.com"
+        }
+    ],
+    "require": {
+        "guzzlehttp/guzzle": "^6.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "aston_creator\\piwigo_sdk_php\\": "src/"
+        }
+    }
+}
